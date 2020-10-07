@@ -1,6 +1,8 @@
 #include "DiscMath/Disk.h"
 
-vector<string> u, a, b, c;
+vector<string> u, a, b, c, arr1, arr2, arr3;
+
+vector<string>& ArraySelect();
 
 int main() {
 	SetConsoleCP(1251);			// Исправление ошибки
@@ -15,7 +17,7 @@ int main() {
 	c = ArrayInput();
 	while (1) {
 		system("cls");
-		cout << "Выберите операцию, которую хотите провести над множеством:\n 1. Объединение множеств A и B;\n 2. Пересечение множест A и B;\n 3. Разность множест A и B;\n 4. Разность множест B и A;\n 5. Симметрическая разность множест A и B;\n 6. Инверсия множества A\n 7. Инверсия множества A\n 8. Мощность булеаны множества A\n 9. Мощность булеаны множества B\n 10. Декартово произведение\n 11. Построение матриц\n";
+		cout << "Выберите операцию, которую хотите провести над множеством:\n 1. Объединение множеств;\n 2. Пересечение множеств;\n 3. Разность множеств;\n 4. Симметрическая разность множест;\n 5. Инверсия множества\n 6. Буллеана множества\n 7. Мощность булеаны множества\n 8. Декартово произведение\n 9. Телепорты\n";
 		int action = 0;
 		cin >> action;
 		switch (action) {
@@ -24,51 +26,78 @@ int main() {
 			return 0;
 		case 1:
 			system("cls");
-			Unification(a, b);
+			arr1 = ArraySelect();
+			arr2 = ArraySelect();
+			Unification(arr1, arr2);
 			break;
 		case 2:
 			system("cls");
-			Crossing(a, b);
+			arr1 = ArraySelect();
+			arr2 = ArraySelect();
+			Crossing(arr1, arr2);
 			break;
 		case 3:
 			system("cls");
-			Difference(a, b);
+			arr1 = ArraySelect();
+			arr2 = ArraySelect();
+			Difference(arr1, arr2);
 			break;
 		case 4:
 			system("cls");
-			Difference(b, a);
+			SymetricDifference(a, b);
 			break;
 		case 5:
 			system("cls");
-			SymetricDifference(a, b);
+			arr1 = ArraySelect();
+			Difference(u, arr1);
 			break;
 		case 6:
-			system("cls");
-			Difference(u, a);
+			arr1 = ArraySelect();
+			BulenaOfArray(arr1);
 			break;
 		case 7:
 			system("cls");
-			Difference(u, b);
+			arr1 = ArraySelect();
+			cout << PowerOFBuleanaOfArray(arr1) << endl;
+			system("pause");
 			break;
 		case 8:
 			system("cls");
-			PowerOFBuleanaOfArray(a);
+			arr1 = ArraySelect();
+			arr2 = ArraySelect();
+			CartesianProduct(arr1, arr2);
+			system("pause");
 			break;
 		case 9:
 			system("cls");
-			PowerOFBuleanaOfArray(b);
-			break;
-		case 10:
-			system("cls");
-			CartesianProduct(a, b);
-			system("pause");
-			break;
-		case 11:
-			system("cls");
 			Teleports(a, b, c);
+			break;
 		default:
 			cout << "Ошибка ввода\n";
 		}
 	}
 	return 0;
+}
+
+vector<string>& ArraySelect() {
+	cout << "Выберите множество:\n 0 - Универсум\n 1 - A\n 2 - B\n 3 - C\n";
+	while (1) {
+		int choose = 0;
+		cin >> choose;
+		if (choose == 0) {
+			return u;
+		}
+		else if (choose == 1) {
+			return a;
+		}
+		else if (choose == 2) {
+			return b;
+		}
+		else if (choose == 3) {
+			return c;
+		}
+		else {
+			cout << "Ошибка ввода\n";
+		}
+	}
 }

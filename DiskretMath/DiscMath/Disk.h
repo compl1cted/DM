@@ -13,7 +13,7 @@ void Crossing(vector<string>& array1, vector<string>& array2); // Пересеч
 void Difference(vector<string>& array1, vector<string>& array2); // Разность
 void SymetricDifference(vector<string>& array1, vector<string>& array2); // Симетрическая разность
 void BulenaOfArray(vector<string>& array);
-void PowerOFBuleanaOfArray(vector<string>& array); // Мощность булеаны
+int PowerOFBuleanaOfArray(vector<string>& array); // Мощность булеаны
 vector<vector<string>> CartesianProduct(vector<string>& array1, vector<string>& array2); // Декартовое произведние
 void Teleports(vector<string>& array1, vector<string>& array2, vector<string>& array3); // Телепорты
 

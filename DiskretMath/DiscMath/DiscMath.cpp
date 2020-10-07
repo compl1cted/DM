@@ -55,18 +55,22 @@ void SymetricDifference(vector<string>& array1, vector<string>& array2) {
 }
 
 void BulenaOfArray(vector<string>& array) {
-	vector<vector<string>> Buleana;
-	Buleana.push_back(vector<string>());
-	for (int i = 0; i < array.size(); i++) {
-		Buleana.back().push_back(array[i]);
+	int BuleanaSize = PowerOFBuleanaOfArray(array);
+	for (int i = 0; i < BuleanaSize; i ++) {
+		cout << "{";
+		for (int j = 0; j < array.size(); j++) {
+			if (i & (1<<j)) {
+				cout << array[j] << " ";
+			}
+		}
+		cout << "}";
 	}
-	Buleana.push_back(array);
-	Buleana.push_back(vector<string>());
+	system("pause");
 }
 
-void PowerOFBuleanaOfArray(vector<string>& array) {
-	cout << pow(2, array.size()) << endl;
-	system("pause");
+int PowerOFBuleanaOfArray(vector<string>& array) {
+	int POB = pow(2, array.size());
+	return POB;
 }
 
 vector<vector<string>> CartesianProduct(vector<string>& array1, vector<string>& array2) {
@@ -82,19 +86,17 @@ vector<vector<string>> CartesianProduct(vector<string>& array1, vector<string>& 
 
 void Teleports(vector<string>& array1, vector<string>& array2, vector<string>& array3) {
 	int choose = 0;
-	vector<vector<string>> R;
-	vector<vector<string>> S;
+	vector<vector<string>> R, S;
 
 	vector<vector<string>> CartesianProduct1 = CartesianProduct(array1, array2);
-	vector<vector<string>> CartesianProduct2 = CartesianProduct(array2, array3);
 
-	DisplayAnArray(CartesianProduct1);
 	cout << "Выберите 5 пар из первого декартового множества\n";
 	for (int i = 0; i < 5; i++) {
 		choose = SelectAPair(CartesianProduct1);
 		R.push_back(CartesianProduct1[choose]);
 	}
-	DisplayAnArray(CartesianProduct2);
+	vector<vector<string>> CartesianProduct2 = CartesianProduct(array2, array3);
+
 	cout << "Выберите 5 пар из второго декартового множества\n";
 	for (int i = 0; i < 5; i++) {
 		choose = SelectAPair(CartesianProduct2);
@@ -109,7 +111,6 @@ void Teleports(vector<string>& array1, vector<string>& array2, vector<string>& a
 
 	DisplayMatrix(Matrix1, array1, array2);
 	DisplayMatrix(Matrix2, array2, array3);
-
 
 	//Создание третьей матрицы  и заполнение ее нулями
 	vector<vector<string>> Matrix3;
@@ -132,6 +133,7 @@ void Teleports(vector<string>& array1, vector<string>& array2, vector<string>& a
 		}
 	}
 	DisplayMatrix(Matrix3, array3, array1);
+
 	cout << "Область определения R:";
 	DisplayAnArray(array1);
 	cout << "Область определения S:";
@@ -141,6 +143,7 @@ void Teleports(vector<string>& array1, vector<string>& array2, vector<string>& a
 	DisplayAnArray(array2); 
 	cout << "Область значения S:";
 	DisplayAnArray(array3);
+
 	system("pause");
 }
 
@@ -159,17 +162,21 @@ void DisplayMatrix(vector<vector<string>>& Matrix, vector<string>& array1, vecto
 }
 
 vector<vector<string>> FillMatrix(vector<vector<string>>& CartesianProduct, vector<vector<string>>& PairArray, vector<string> &array1) {
+	int count = 0;
 	vector<vector<string>> Matrix;
-	for (int i = 0; i < CartesianProduct.size() / array1.size(); i++) {
-		Matrix.push_back(vector<string>());
-		for (int j = 0; j < array1.size(); j++) {
-			if (IsSameElement(PairArray, CartesianProduct[i])) {
-				Matrix.back().push_back("1");
-			}
-			else {
-				Matrix.back().push_back("0");
-			}
+	Matrix.push_back(vector<string>());
+	for (int i = 0; i < CartesianProduct.size(); i++) {
+		if (count == array1.size()) {
+			Matrix.push_back(vector<string>());
+			count = 0;
 		}
+		if (IsSameElement(PairArray, CartesianProduct[i])) {
+			Matrix.back().push_back("1");
+		}
+		else {
+			Matrix.back().push_back("0");
+		}
+		count++;
 	}
 	return Matrix;
 }
