@@ -1,3 +1,0 @@
-﻿  DiscMath.cpp
-C:\development\DiskretMath\DiskretMath\DiscMath\DiscMath.cpp(72,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  DiskretMath.vcxproj -> C:\development\DiskretMath\x64\Debug\DiscreteMath.exe
