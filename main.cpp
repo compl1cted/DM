@@ -1,87 +1,96 @@
-#include "Disk.h"
+#include "set.h"
 
-vector<string> u, a, b, c, arr1, arr2, arr3;
+using namespace set_methods;
+
+vector<string> u, a, b, c, arr1, arr2, result;
+vector<vector<string>> powerSet, ct;
 
 vector<string>& ArraySelect();
 
 int main() {
-	SetConsoleCP(1251);			// ����������� ������
-	SetConsoleOutputCP(1251);	// ��������� � �������
-	cout << "������� �������� ����������\n";
-	u = ArrayInput();
-	cout << "������� �������� ��������� A\n";
-	a = ArrayInput();
-	cout << "������� �������� ��������� B\n";
-	b = ArrayInput();
-	cout << "������� �������� ��������� C\n";
-	c = ArrayInput();
-	while (1) {
-		system("cls");
-		cout << "�������� ��������, ������� ������ �������� ��� ����������:\n 1. ����������� ��������;\n 2. ����������� ��������;\n 3. �������� ��������;\n 4. �������������� �������� �������;\n 5. �������� ���������\n 6. �������� ���������\n 7. �������� ������� ���������\n 8. ��������� ������������\n 9. ���������\n";
+    a.emplace_back("1");
+    a.emplace_back("2");
+    a.emplace_back("3");
+    a.emplace_back("4");
+
+    b.emplace_back("4");
+    b.emplace_back("5");
+    b.emplace_back("6");
+    b.emplace_back("7");
+
+    c.emplace_back("1");
+    c.emplace_back("9");
+    c.emplace_back("8");
+    c.emplace_back("5");
+//	cout << "Fill the universal set\n";
+//	u = arrayInput();
+//	cout << "Fill the set A\n";
+//	a = arrayInput();
+//	cout << "Fill the set B\n";
+//	b = arrayInput();
+//	cout << "Fill the set C\n";
+//	c = arrayInput();
+	while (true) {
+		cout << "Choose an method for following set:\n 1. getUnifiedSetOf;\n 2. getCrossedSetOf;\n 3. Difference;\n 4. Symmetric getDifferenceSetOf;\n 5. Difference with universal set \n 6. Get Power Set\n 7. Get Power Set Size\n 8. Get Cartesian Product\n 9. Teleports\n";
 		int action = 0;
 		cin >> action;
+        system("cls");
 		switch (action) {
 		case 0:
-			cout << "��������� �����������\n";
+			cout << "Exiting...\n";
 			return 0;
 		case 1:
-			system("cls");
 			arr1 = ArraySelect();
 			arr2 = ArraySelect();
-			Unification(arr1, arr2);
+			result = getUnifiedSetOf(arr1, arr2);
 			break;
 		case 2:
-			system("cls");
 			arr1 = ArraySelect();
 			arr2 = ArraySelect();
-			Crossing(arr1, arr2);
+            result = getCrossedSetOf(arr1, arr2);
 			break;
 		case 3:
-			system("cls");
 			arr1 = ArraySelect();
 			arr2 = ArraySelect();
-			Difference(arr1, arr2);
+            result = getDifferenceSetOf(arr1, arr2);
 			break;
 		case 4:
-			system("cls");
-			SymetricDifference(a, b);
+            result = getSymmetricDifferenceSetOf(a, b);
 			break;
 		case 5:
-			system("cls");
 			arr1 = ArraySelect();
-			Difference(u, arr1);
+            result = getDifferenceSetOf(u, arr1);
 			break;
 		case 6:
 			arr1 = ArraySelect();
-			BulenaOfArray(arr1);
+            powerSet = getPowerSet(arr1);
+            displayPowerSet(powerSet);
 			break;
 		case 7:
-			system("cls");
 			arr1 = ArraySelect();
-			cout << PowerOFBuleanaOfArray(arr1) << endl;
-			system("pause");
+			cout << getPowerSetSize(arr1) << endl;
 			break;
 		case 8:
-			system("cls");
 			arr1 = ArraySelect();
 			arr2 = ArraySelect();
-			CartesianProduct(arr1, arr2);
-			system("pause");
+            ct = getCartesianProduct(arr1, arr2);
+            displayArray(ct);
 			break;
 		case 9:
-			system("cls");
-			Teleports(a, b, c);
+            teleports(a, b, c);
 			break;
 		default:
-			cout << "������ �����\n";
+			cout << "Invalid input\n";
 		}
+
+        displayArray(result);
+        cin.get();
 	}
-	return 0;
 }
 
 vector<string>& ArraySelect() {
-	cout << "�������� ���������:\n 0 - ���������\n 1 - A\n 2 - B\n 3 - C\n";
-	while (1) {
+	cout << "Select set:\n 0 - Universal Set\n 1 - A\n 2 - B\n 3 - C\n";
+	while (true) {
 		int choose = 0;
 		cin >> choose;
 		if (choose == 0) {
@@ -97,7 +106,7 @@ vector<string>& ArraySelect() {
 			return c;
 		}
 		else {
-			cout << "������ �����\n";
+			cout << "Invalid Input\n";
 		}
 	}
 }
